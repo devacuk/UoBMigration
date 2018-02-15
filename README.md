@@ -1,4 +1,4 @@
-# UoB Migration scripts #
+# SharePoint Migration scripts #
 
 > to prepare the database so that mapping files can be made
 
