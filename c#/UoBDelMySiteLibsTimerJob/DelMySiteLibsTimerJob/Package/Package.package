@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="a020df3b-d460-4318-97af-51b961c2cdf8" solutionId="a020df3b-d460-4318-97af-51b961c2cdf8" resetWebServer="false" name="UoBDelMySiteLibsTimerJob" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="945fe804-0231-4c1a-9fb6-5fd516a13a45" />
+  </features>
+</package>

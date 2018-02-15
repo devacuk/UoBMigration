@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Practices.SharePoint.Common.LoggerProxy</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.AreaMustExist">
+            <summary>
+              Looks up a localized string similar to An area must already exist when adding a category, area {0} not found..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.InvalidProxyArgProvided">
+            <summary>
+              Looks up a localized string similar to The proxy arguments provide where not the required type, provided &apos;{0}&apos;, expected &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.NoSiteContextLogMessage">
+            <summary>
+              Looks up a localized string similar to Sandbox Log, Missing Site Context, Message: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.NoSiteContextTraceMessage">
+            <summary>
+              Looks up a localized string similar to Sandbox Trace,Missing Site Context, Message:&apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.SandboxLogMessage">
+            <summary>
+              Looks up a localized string similar to Sandbox Log, SiteID:&apos;{0}&apos;  SiteName:&apos;{1}&apos;  Message:&apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.LoggerProxy.Properties.Resources.SandboxTraceMessage">
+            <summary>
+              Looks up a localized string similar to Sandbox Trace, SiteID:&apos;{0}&apos;   SiteName:&apos;{1}&apos;  Message:&apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Logging.LoggerProxy.TracingOperation">
+            <summary>
+            Implements the full trust proxy for tracing to the ULS.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Logging.LoggerProxy.TracingOperation.Execute(Microsoft.SharePoint.UserCode.SPProxyOperationArgs)">
+            <summary>
+            Implements the full trust proxy for tracing information to the ULS from the sandbox.
+            </summary>
+            <param name="args">The arguments for the operation, must be of type <see cref="T:Microsoft.Practices.SharePoint.Common.ProxyArgs.TracingOperationArgs"/></param>
+            <returns>null if successful, or an exception representing an error if an error occurred</returns>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Logging.LoggerProxy.LoggingOperation">
+            <summary>
+            Provides the full trust proxy operation for logging
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Logging.LoggerProxy.LoggingOperation.Execute(Microsoft.SharePoint.UserCode.SPProxyOperationArgs)">
+            <summary>
+            Implements the full trust proxy for logging from the sandbox to the event log.
+            </summary>
+            <param name="args">The arguments for logging, must be of type <see cref="T:Microsoft.Practices.SharePoint.Common.ProxyArgs.LoggingOperationArgs"/></param>
+            <returns>null if no error occurred, otherwise the exception representing the error condition</returns>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.LoggerProxy.Features.LoggerProxyFeature.LoggerProxyFeatureEventReceiver">
+            <summary>
+            This class handles events raised during feature activation, deactivation, installation, uninstallation, and upgrade.
+            </summary>
+            <remarks>
+            The GUID attached to this class may be used during packaging and should not be modified.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.LoggerProxy.Features.LoggerProxyFeature.LoggerProxyFeatureEventReceiver.FeatureActivated(Microsoft.SharePoint.SPFeatureReceiverProperties)">
+            <summary>
+            Registers the proxy operation for logging and tracing with the farm.
+            </summary>
+            <param name="properties">The properties provided to the feature receiver</param>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.LoggerProxy.Features.LoggerProxyFeature.LoggerProxyFeatureEventReceiver.FeatureDeactivating(Microsoft.SharePoint.SPFeatureReceiverProperties)">
+            <summary>
+            Removes the proxy operations for logging and tracing from the farm.
+            </summary>
+            <param name="properties">The properties provided</param>
+        </member>
+    </members>
+</doc>

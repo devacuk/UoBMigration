@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Practices.SharePoint.Configuration.ConfigurationProxy.Features.Feature1.Feature1EventReceiver">
+            <summary>
+            This class handles events raised during feature activation, deactivation, installation, uninstallation, and upgrade.
+            </summary>
+            <remarks>
+            The GUID attached to this class may be used during packaging and should not be modified.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Configuration.ConfigurationProxy.Features.Feature1.Feature1EventReceiver.FeatureActivated(Microsoft.SharePoint.SPFeatureReceiverProperties)">
+            <summary>
+            Registers the proxy operations with the farm.
+            </summary>
+            <param name="properties">the properties provided by the feature receiver</param>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Configuration.ConfigurationProxy.Features.Feature1.Feature1EventReceiver.FeatureDeactivating(Microsoft.SharePoint.SPFeatureReceiverProperties)">
+            <summary>
+            Removes the proxy operations from the farm for configuration proxies.
+            </summary>
+            <param name="properties">The properties provided on deactivation</param>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ProxyInstalledOperation">
+            <summary>
+            The proxy operation used to determine if a full-trust proxy is installed in the farm.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ProxyInstalledOperation.Execute(Microsoft.SharePoint.UserCode.SPProxyOperationArgs)">
+            <summary>
+            Determines if a full trust proxy is installed to the farm.
+            </summary>
+            <param name="args">Provides the arguments defining the full trust proxy to check for installation, must be of type <see cref="T:Microsoft.Practices.SharePoint.Common.ProxyArgs.ProxyInstalledArgs"/></param>
+            <returns>true if the proxy is installed in the farm, false if not installed, or an exception representing an error if an error occurred</returns>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ProxyInstalledOperation.ProxyComparer">
+            <summary>
+            Does an equality comparison of two proxy operation types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ProxyInstalledOperation.ProxyComparer.Equals(Microsoft.SharePoint.UserCode.SPProxyOperationType,Microsoft.SharePoint.UserCode.SPProxyOperationType)">
+            <summary>
+            Returns true if the two items are equal, false otherwise.
+            </summary>
+            <param name="x">the first operation to compare</param>
+            <param name="y">the second operation to compare</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ProxyInstalledOperation.ProxyComparer.GetHashCode(Microsoft.SharePoint.UserCode.SPProxyOperationType)">
+            <summary>
+            Returns hash code for the proxy operation.
+            </summary>
+            <param name="obj">The object to generate the hash code for</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources.EmptySiteGuid">
+            <summary>
+              Looks up a localized string similar to The Site ID guid is empty.  You must provide a valid Site ID..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources.InvalidConfigLevel">
+            <summary>
+              Looks up a localized string similar to The config level {0} should not be accessed through the configuration proxy..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources.InvalidKeyName">
+            <summary>
+              Looks up a localized string similar to The key name provided does not conform to the permitted values, key name: &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.Properties.Resources.InvalidProxyArgumentType">
+            <summary>
+              Looks up a localized string similar to The proxy operation requires a proxy argument type of &apos;{0}&apos;, provided type &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ContainsKeyOperation">
+            <summary>
+            The full trust proxy operation for determining if a key exists in a web application or farm property bag.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ContainsKeyOperation.Execute(Microsoft.SharePoint.UserCode.SPProxyOperationArgs)">
+            <summary>
+            Implements the operation for determining if a key exists in a web application
+            </summary>
+            <param name="args">The arguments for the contains key operation.  This must be an instance of ContainsKeyDataArgs.</param>
+            <returns>true if the key found, false if the key is not found, or an exception representing an error if an error occurred</returns>
+        </member>
+        <member name="T:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ReadConfigurationOperation">
+            <summary>
+            The proxy operation to read configuration items from the web application and farm levels.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationProxy.ReadConfigurationOperation.Execute(Microsoft.SharePoint.UserCode.SPProxyOperationArgs)">
+            <summary>
+            Implements looking up a value for the key provided at the farm or web application level.  The key must be preceded
+            by the p and p namespace value, otherwise a <see cref="T:Microsoft.Practices.SharePoint.Common.Configuration.ConfigurationException"/> will be returned.
+            </summary>
+            <param name="args">The arguments for the operation, must be of type <see cref="T:Microsoft.Practices.SharePoint.Common.ProxyArgs.ReadConfigArgs"/></param>
+            <returns>The value for the key, null if no value found, or an exception representing an error if an error occurred</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Title="UoB DelMySiteLibsTimerJob Feature" Id="2ede9295-d361-4e07-b087-86f759b1809c" ReceiverAssembly="DelMySiteLibsTimerJob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6641092844ffe3ae" ReceiverClass="DelMySiteLibsTimerJob.Features.Feature1.Feature1EventReceiver" Scope="WebApplication"></Feature>

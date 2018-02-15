@@ -1,0 +1,331 @@
+<ns0:RootWorkflowActivityWithData x:Class="Microsoft.SharePoint.Workflow.ROOT" x:Name="ROOT" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns1="clr-namespace:Microsoft.SharePoint.WorkflowActions.WithKey;Assembly=Microsoft.SharePoint.WorkflowActions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns2="clr-namespace:ExecutionModels.Workflow.FullTrust.Activities;Assembly=ExecutionModels.Workflow.FullTrust.Activities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:Microsoft.SharePoint.WorkflowActions;Assembly=Microsoft.SharePoint.WorkflowActions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=null">
+	<ns0:RootWorkflowActivityWithData.WorkflowFields>
+		<ns0:WorkflowDataField Name="__list" Type="System.String" />
+		<ns0:WorkflowDataField Name="__item" Type="Microsoft.SharePoint.Workflow.SPItemKey, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+		<ns0:WorkflowDataField Name="__context" Type="Microsoft.SharePoint.WorkflowActions.WorkflowContext" />
+		<ns0:WorkflowDataField Name="__initParams" Type="Microsoft.SharePoint.Workflow.SPWorkflowActivationProperties" />
+		<ns0:WorkflowDataField Name="__workflowId" Type="System.Guid" />
+		<ns0:WorkflowDataField Name="__historylist" Type="System.String" />
+		<ns0:WorkflowDataField Name="__tasklist" Type="System.String" />
+		<ns0:WorkflowDataField Name="__itemId" Type="System.Int32" />
+		<ns0:WorkflowDataField Name="ProjectSiteUrl" Type="System.String" />
+		<ns0:WorkflowDataField Name="ProjectName" Type="System.String" />
+		<ns0:WorkflowDataField Name="ProjectSiteCalendarUrl" Type="System.String" />
+		<ns0:WorkflowDataField Name="ProjectCalendarLinkListUrl" Type="System.String" />
+		<ns0:WorkflowDataField Name="CreateLinkException" Type="System.String" />
+		<ns0:WorkflowDataField Name="CopyLibraryException" Type="System.String" />
+		<ns0:WorkflowDataField Name="ProjectSiteLinksUrl" Type="System.String" />
+		<ns0:WorkflowDataField Name="SPSiteRootWebUrl" Type="System.String" />
+	</ns0:RootWorkflowActivityWithData.WorkflowFields>
+	<ns0:OnWorkflowActivated WorkflowProperties="{ActivityBind ROOT,Path=__initParams}" x:Name="ID1">
+		<ns0:OnWorkflowActivated.CorrelationToken>
+			<wf0:CorrelationToken Name="refObject" OwnerActivityName="ROOT" xmlns:wf0="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns0:OnWorkflowActivated.CorrelationToken>
+	</ns0:OnWorkflowActivated>
+	<ns0:ApplyActivation __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID2" __WorkflowProperties="{ActivityBind ROOT,Path=__initParams}" />
+	<SequenceActivity x:Name="ID15" Description="Wait for Estimate Approval">
+		<ns1:WaitForActivity x:Name="ID16" FieldName="SOWStatus" __Context="{ActivityBind ROOT,Path=__context}" __ListId="{ActivityBind ROOT,Path=__list}" __ListItem="{ActivityBind ROOT,Path=__item}" Operator="Equal">
+			<ns1:WaitForActivity.Value>
+				<ns3:String xmlns:ns3="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Approved</ns3:String>
+			</ns1:WaitForActivity.Value>
+		</ns1:WaitForActivity>
+	</SequenceActivity>
+	<ns0:ImpersonationSequenceActivity RunAs="Owner" __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID480">
+		<ns0:PersistOnCloseActivity x:Name="ID481" />
+		<SequenceActivity x:Name="ID486" Description="Create Project Site">
+			<ns0:SPUserCodeWorkflowActivity x:Name="ID576" AssemblyName="DataModels.ListOf.CreateLink, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0c48c76b36b01fc" FunctionName="GetRootWebUrlAction" __Context="{ActivityBind ROOT,Path=__context}" OutParams="rootWebUrl;System.String, mscorlib" SolutionId="60035595-1ba7-4a83-be1a-f2dbe9b21bb4" ClassName="DataModels.ListOf.CreateLink">
+				<ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+					<WorkflowParameterBinding ParameterName="rootWebUrl">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Name="ROOT" Path="SPSiteRootWebUrl" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+			</ns0:SPUserCodeWorkflowActivity>
+			<ns1:LookupActivity ListId="{ActivityBind ROOT,Path=__list}" x:Name="ID469" FieldName="ProjectsLookup" LookupFunction="LookupString" __Context="{ActivityBind ROOT,Path=__context}" ListItem="{ActivityBind ROOT,Path=__item}" />
+			<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID468" CoercionFunction="LookupColumnDataOnlyAsString">
+				<ns0:CoerceStringActivity.Value>
+					<ActivityBind Name="ID469" Path="ReturnValue" />
+				</ns0:CoerceStringActivity.Value>
+			</ns0:CoerceStringActivity>
+			<ns0:SetVariableActivity x:Name="ID467" ValueType="System.String">
+				<ns0:SetVariableActivity.Variable>
+					<ActivityBind Name="ROOT" Path="ProjectName" />
+				</ns0:SetVariableActivity.Variable>
+				<ns0:SetVariableActivity.Value>
+					<ActivityBind Name="ID468" Path="ReturnValue" />
+				</ns0:SetVariableActivity.Value>
+			</ns0:SetVariableActivity>
+			<ns1:LookupActivity ListId="" x:Name="ID501" FieldName="CurrentWebUrl" LookupFunction="WILookupString" __Context="{ActivityBind ROOT,Path=__context}" ListItem="{ActivityBind ROOT,Path=__item}" />
+			<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID500" CoercionFunction="AsDNString">
+				<ns0:CoerceStringActivity.Value>
+					<ActivityBind Name="ID501" Path="ReturnValue" />
+				</ns0:CoerceStringActivity.Value>
+			</ns0:CoerceStringActivity>
+			<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID502" CoercionFunction="AsDNString">
+				<ns0:CoerceStringActivity.Value>
+					<ActivityBind Name="ROOT" Path="ProjectName" />
+				</ns0:CoerceStringActivity.Value>
+			</ns0:CoerceStringActivity>
+			<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID499" Value="[%ID500.ReturnValue%]/[%ID502.ReturnValue%]" />
+			<ns0:SetVariableActivity x:Name="ID402" ValueType="System.String">
+				<ns0:SetVariableActivity.Variable>
+					<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+				</ns0:SetVariableActivity.Variable>
+				<ns0:SetVariableActivity.Value>
+					<ActivityBind Name="ID499" Path="ReturnValue" />
+				</ns0:SetVariableActivity.Value>
+			</ns0:SetVariableActivity>
+			<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID448" CoercionFunction="AsDNString">
+				<ns0:CoerceStringActivity.Value>
+					<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+				</ns0:CoerceStringActivity.Value>
+			</ns0:CoerceStringActivity>
+			<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID447" Value="The project site url is [%ID448.ReturnValue%]" />
+			<ns0:LogToHistoryListActivity x:Name="ID446" OtherData="{x:Null}" HistoryDescription="{ActivityBind ID447,Path=ReturnValue}" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+			<IfElseActivity x:Name="ID487">
+				<IfElseBranchActivity x:Name="ID488">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="__Rule_ID488" />
+					</IfElseBranchActivity.Condition>
+					<ns0:LogToHistoryListActivity x:Name="ID449" OtherData="{x:Null}" HistoryDescription="The project site aleady exists" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="ID489">
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID504" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID505" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectName" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns2:CreateSubSiteActivity ConvertIfExists="False" x:Name="ID503" LocaleID="1033" UseUniquePermissions="False" SiteTitle="{ActivityBind ID505,Path=ReturnValue}" SiteDescription="Project Management Site" SiteUrl="{ActivityBind ID504,Path=ReturnValue}" SiteTemplateId="STS#0" />
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID422" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID492" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectName" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID491" Value="Project [%ID492.ReturnValue%]" />
+					<ns0:LogToHistoryListActivity x:Name="ID450" OtherData="{x:Null}" HistoryDescription="The project site was created" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID516" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID515" Value="[%ID516.ReturnValue%]/Lists/Calendar" />
+					<ns0:SetVariableActivity x:Name="ID512" ValueType="System.String">
+						<ns0:SetVariableActivity.Variable>
+							<ActivityBind Name="ROOT" Path="ProjectSiteCalendarUrl" />
+						</ns0:SetVariableActivity.Variable>
+						<ns0:SetVariableActivity.Value>
+							<ActivityBind Name="ID515" Path="ReturnValue" />
+						</ns0:SetVariableActivity.Value>
+					</ns0:SetVariableActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID584" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="SPSiteRootWebUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID583" Value="[%ID584.ReturnValue%]/Lists/ProjectCalendars" />
+					<ns0:SetVariableActivity x:Name="ID525" ValueType="System.String">
+						<ns0:SetVariableActivity.Variable>
+							<ActivityBind Name="ROOT" Path="ProjectCalendarLinkListUrl" />
+						</ns0:SetVariableActivity.Variable>
+						<ns0:SetVariableActivity.Value>
+							<ActivityBind Name="ID583" Path="ReturnValue" />
+						</ns0:SetVariableActivity.Value>
+					</ns0:SetVariableActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID524" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectName" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID523" Value="[%ID524.ReturnValue%] - Calendar" />
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID586" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteCalendarUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID587" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectCalendarLinkListUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:SPUserCodeWorkflowActivity x:Name="ID521" AssemblyName="DataModels.ListOf.CreateLink, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0c48c76b36b01fc" FunctionName="CreateLinkForItemAction" __Context="{ActivityBind ROOT,Path=__context}" OutParams="exception;System.String, mscorlib" SolutionId="60035595-1ba7-4a83-be1a-f2dbe9b21bb4" ClassName="DataModels.ListOf.CreateLink">
+						<ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+							<WorkflowParameterBinding ParameterName="exception">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ROOT" Path="CreateLinkException" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="linkTargetUrl">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID586" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="linkDescription">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID523" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="targetListUrl">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID587" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+					</ns0:SPUserCodeWorkflowActivity>
+					<IfElseActivity x:Name="ID530">
+						<IfElseBranchActivity x:Name="ID531">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="__Rule_ID531" />
+							</IfElseBranchActivity.Condition>
+							<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID573" CoercionFunction="AsDNString">
+								<ns0:CoerceStringActivity.Value>
+									<ActivityBind Name="ROOT" Path="CreateLinkException" />
+								</ns0:CoerceStringActivity.Value>
+							</ns0:CoerceStringActivity>
+							<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID572" Value="Unable to Create Calendar Link, Exception [%ID573.ReturnValue%]" />
+							<ns0:LogToHistoryListActivity x:Name="ID532" OtherData="{x:Null}" HistoryDescription="{ActivityBind ID572,Path=ReturnValue}" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+							<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID568" CoercionFunction="AsDNString">
+								<ns0:CoerceStringActivity.Value>
+									<ActivityBind Name="ROOT" Path="ProjectCalendarLinkListUrl" />
+								</ns0:CoerceStringActivity.Value>
+							</ns0:CoerceStringActivity>
+							<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID567" Value="URL was:[%ID568.ReturnValue%]" />
+							<ns0:LogToHistoryListActivity x:Name="ID566" OtherData="{x:Null}" HistoryDescription="{ActivityBind ID567,Path=ReturnValue}" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+						</IfElseBranchActivity>
+						<IfElseBranchActivity x:Name="ID554">
+							<ns0:LogToHistoryListActivity x:Name="ID555" OtherData="{x:Null}" HistoryDescription="Created Calendar Link" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+						</IfElseBranchActivity>
+					</IfElseActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID582" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="SPSiteRootWebUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID581" Value="[%ID582.ReturnValue%]/Lists/ProjectSites" />
+					<ns0:SetVariableActivity x:Name="ID540" ValueType="System.String">
+						<ns0:SetVariableActivity.Variable>
+							<ActivityBind Name="ROOT" Path="ProjectSiteLinksUrl" />
+						</ns0:SetVariableActivity.Variable>
+						<ns0:SetVariableActivity.Value>
+							<ActivityBind Name="ID581" Path="ReturnValue" />
+						</ns0:SetVariableActivity.Value>
+					</ns0:SetVariableActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID545" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID546" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectName" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID547" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteLinksUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:SPUserCodeWorkflowActivity x:Name="ID544" AssemblyName="DataModels.ListOf.CreateLink, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0c48c76b36b01fc" FunctionName="CreateLinkForItemAction" __Context="{ActivityBind ROOT,Path=__context}" OutParams="exception;System.String, mscorlib" SolutionId="60035595-1ba7-4a83-be1a-f2dbe9b21bb4" ClassName="DataModels.ListOf.CreateLink">
+						<ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+							<WorkflowParameterBinding ParameterName="exception">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ROOT" Path="CreateLinkException" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="linkTargetUrl">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID545" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="linkDescription">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID546" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="targetListUrl">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID547" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+					</ns0:SPUserCodeWorkflowActivity>
+					<IfElseActivity x:Name="ID548">
+						<IfElseBranchActivity x:Name="ID549">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="__Rule_ID549" />
+							</IfElseBranchActivity.Condition>
+							<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID575" CoercionFunction="AsDNString">
+								<ns0:CoerceStringActivity.Value>
+									<ActivityBind Name="ROOT" Path="CreateLinkException" />
+								</ns0:CoerceStringActivity.Value>
+							</ns0:CoerceStringActivity>
+							<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID574" Value="Unable to Create Project Site Link, Exception [%ID575.ReturnValue%]" />
+							<ns0:LogToHistoryListActivity x:Name="ID550" OtherData="{x:Null}" HistoryDescription="{ActivityBind ID574,Path=ReturnValue}" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+							<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID571" CoercionFunction="AsDNString">
+								<ns0:CoerceStringActivity.Value>
+									<ActivityBind Name="ROOT" Path="ProjectSiteLinksUrl" />
+								</ns0:CoerceStringActivity.Value>
+							</ns0:CoerceStringActivity>
+							<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID570" Value="Url was:[%ID571.ReturnValue%]" />
+							<ns0:LogToHistoryListActivity x:Name="ID569" OtherData="{x:Null}" HistoryDescription="{ActivityBind ID570,Path=ReturnValue}" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+						</IfElseBranchActivity>
+						<IfElseBranchActivity x:Name="ID556">
+							<ns0:LogToHistoryListActivity x:Name="ID557" OtherData="{x:Null}" HistoryDescription="Created Project Site Link" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+						</IfElseBranchActivity>
+					</IfElseActivity>
+					<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID591" CoercionFunction="AsDNString">
+						<ns0:CoerceStringActivity.Value>
+							<ActivityBind Name="ROOT" Path="ProjectSiteUrl" />
+						</ns0:CoerceStringActivity.Value>
+					</ns0:CoerceStringActivity>
+					<ns0:SPUserCodeWorkflowActivity x:Name="ID590" AssemblyName="ExecutionModels.Workflow.Sandboxed.Activities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cabeb32289ea7a2a" FunctionName="CopyLibraryActivity" __Context="{ActivityBind ROOT,Path=__context}" OutParams="exception;System.String, mscorlib" SolutionId="fdce0e79-fda2-49e5-8aba-e1fa4317d980" ClassName="ExecutionModels.Workflow.Sandboxed.Activities.CopyLibrary">
+						<ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+							<WorkflowParameterBinding ParameterName="exception">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ROOT" Path="CopyLibraryException" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="libraryName">
+								<WorkflowParameterBinding.Value>
+									<ns3:String xmlns:ns3="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Templates</ns3:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="targetSiteUrl">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Name="ID591" Path="ReturnValue" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns0:SPUserCodeWorkflowActivity.ParameterBindings>
+					</ns0:SPUserCodeWorkflowActivity>
+					<IfElseActivity x:Name="ID535">
+						<IfElseBranchActivity x:Name="ID536">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="__Rule_ID536" />
+							</IfElseBranchActivity.Condition>
+							<ns0:CoerceStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID539" CoercionFunction="AsDNString">
+								<ns0:CoerceStringActivity.Value>
+									<ActivityBind Name="ROOT" Path="CopyLibraryException" />
+								</ns0:CoerceStringActivity.Value>
+							</ns0:CoerceStringActivity>
+							<ns0:DynamicStringActivity __Context="{ActivityBind ROOT,Path=__context}" x:Name="ID538" Value="Unable to copy the templates library, Exception [%ID539.ReturnValue%]" />
+							<ns0:LogToHistoryListActivity x:Name="ID537" OtherData="{x:Null}" HistoryDescription="{ActivityBind ID538,Path=ReturnValue}" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+						</IfElseBranchActivity>
+						<IfElseBranchActivity x:Name="ID553">
+							<ns0:LogToHistoryListActivity x:Name="ID490" OtherData="{x:Null}" HistoryDescription="The templates were copied to the target site" HistoryOutcome="{x:Null}" UserId="-1" Duration="00:00:00" EventId="WorkflowComment" />
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</SequenceActivity>
+	</ns0:ImpersonationSequenceActivity>
+</ns0:RootWorkflowActivityWithData>

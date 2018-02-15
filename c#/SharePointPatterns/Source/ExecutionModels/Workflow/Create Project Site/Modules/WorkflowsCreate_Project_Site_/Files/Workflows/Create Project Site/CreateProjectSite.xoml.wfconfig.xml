@@ -1,0 +1,32 @@
+<WorkflowConfig Version="14.0.0.4747">
+	<Template BaseID="{725AF4E2-4A14-4D3D-B8D8-BB3408608DCE}" DocLibURL="_catalogs/wfpub" XomlHref="_catalogs/wfpub/Create Project Site/Create Project Site.xoml" XomlVersion="V1.0" TaskContentType="0x01080100C9C9515DE4E24001905074F980F93160" Category="ContentType;0x010100B022E34803AB43AEA87C937368261B49" ContentTypeID="0x010100B022E34803AB43AEA87C937368261B49" Name="Create Project Site" Description="" StartManually="true" Visibility="RootPublic" RulesHref="_catalogs/wfpub/Create Project Site/Create Project Site.xoml.rules" RulesVersion = "V1.0"/>
+	<ContentTypes/>
+	<Initiation URL="_layouts/IniWrkflIP.aspx">
+		<Fields/>
+		<Parameters/>
+		<DefaultData>
+			<dfs:myFields xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dms="http://schemas.microsoft.com/office/2009/documentManagement/types" xmlns:dfs="http://schemas.microsoft.com/office/infopath/2003/dataFormSolution" xmlns:q="http://schemas.microsoft.com/office/infopath/2009/WSSList/queryFields" xmlns:d="http://schemas.microsoft.com/office/infopath/2009/WSSList/dataFields" xmlns:ma="http://schemas.microsoft.com/office/2009/metadata/properties/metaAttributes" xmlns:pc="http://schemas.microsoft.com/office/infopath/2007/PartnerControls" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<dfs:queryFields/>
+				<dfs:dataFields>
+					<d:SharePointListItem_RW/>
+				</dfs:dataFields>
+			</dfs:myFields>
+		</DefaultData>
+	</Initiation>
+	<Extended>
+		<Fields/>
+	</Extended>
+	<MetaData>
+		<ExtendedStatusColumnValues>
+			<StatusColumnValue>Canceled</StatusColumnValue>
+			<StatusColumnValue>Approved</StatusColumnValue>
+			<StatusColumnValue>Rejected</StatusColumnValue>
+		</ExtendedStatusColumnValues>
+		<Instantiation_FormURI Version= "V0.0">_catalogs/wfpub/Create Project Site/Create Project Site.xsn</Instantiation_FormURI>
+		<Modifications ModificationUrl="_layouts/ModWrkflIP.aspx">
+			<Modification TypeId="64aefd44-fd54-48c1-93c0-86f2f7c71be5" NameFormat="Add or update assignees of {0}" FormURN="urn:schemas-microsoft-com:office:infopath:workflow:ReviewRoutingSPD-Modify:1033"/>
+			<Modification TypeId="8ac90eb6-6c4a-469a-8977-8b8368083380" NameFormat="Update active tasks of {0}" FormURN="urn:schemas-microsoft-com:office:infopath:workflow:ReviewRouting-UpdateTasks:1033"/>
+			<Modification TypeId="a938eabe-8db1-45b9-87cb-b930728afe10" NameFormat="Cancel all {0} tasks" FormURN="urn:schemas-microsoft-com:office:infopath:workflow:OOB-WrapItUp:1033"/>
+		</Modifications>
+	</MetaData>
+</WorkflowConfig>

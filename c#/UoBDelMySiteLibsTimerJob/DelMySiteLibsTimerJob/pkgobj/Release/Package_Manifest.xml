@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution xmlns="http://schemas.microsoft.com/sharepoint/" SolutionId="a020df3b-d460-4318-97af-51b961c2cdf8" SharePointProductVersion="14.0">
+  <Assemblies>
+    <Assembly Location="UoBDelMySiteLibsTimerJob.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <FeatureManifests>
+    <FeatureManifest Location="UoBDelMySiteLibsTimerJob_Feature - UoB DelMySiteLibsTimerJob\Feature.xml" />
+  </FeatureManifests>
+</Solution>
